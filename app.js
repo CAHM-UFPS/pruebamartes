@@ -1,14 +1,18 @@
 let personas = JSON.parse(localStorage.getItem('personas')) ?? [];
-let personasEditar = {};
 let personasEliminadas = JSON.parse(localStorage.getItem('eliminados')) ?? [];
+
+let personasEditar = {};
+
+let editando = false;
+
+let i=0;
+
 listar();
 listarCards();
 
-let i = 0;
-
 function registrar(nombre, cedula, fechanacimiento) {
     const objetoCliente = {
-        id: i++,
+        id: ++i,
         nombre,
         cedula,
         fechanacimiento
@@ -31,18 +35,24 @@ function actualizarLsPersonas(persona) {
     localStorage.setItem('personas', JSON.stringify(persona));
 }
 
-function actualizarLsEliminados(persona){
+function actualizarLsEliminados(persona) {
     localStorage.setItem('eliminados', JSON.stringify(persona));
 }
 
-function editar(id){
-    const personaEditar=personas.find((persona)=>{
-        return persona.id===id;
+function editar(id) {
+    const personaEditar = personas.find((persona) => {
+        return persona.id === id;
     });
-    
-    document.querySelector("#nombre").value=personaEditar.nombre;
-    document.querySelector("#cedula").value=personaEditar.cedula;
-    document.querySelector("#nacimiento").value=personaEditar.fechanacimiento;
+
+    editando = true;
+
+    document.querySelector("#nombre").value = personaEditar.nombre;
+    document.querySelector("#cedula").value = personaEditar.cedula;
+    document.querySelector("#nacimiento").value = personaEditar.fechanacimiento;
+
+    personasEditar.id = id;
+
+    formulario.querySelector('button[type="submit"]').textContent = "Editar";
 }
 
 function eliminar(id) {
@@ -78,8 +88,8 @@ function listar() {
             <td>${personas[i].fechanacimiento}</td>
             <td>${personas[i].edad}</td>
             <td>
-                <button type="button" onclick="editar(${personas[i].id})">Editar</button>
-                <button type="button" onclick="eliminar(${personas[i].id})">Eliminar</button>
+                <button type="button" id="editar" onclick="editar(${personas[i].id})">Editar</button>
+                <button type="button" id="eliminar" onclick="eliminar(${personas[i].id})">Eliminar</button>
             </td>
         </tr>
         `;
@@ -117,13 +127,34 @@ document.getElementById("formulario").addEventListener('submit', function (e) {
         return;
     }
 
-    if (!personas.some((persona) => persona.cedula === cedula)) {
-        registrar(nombre, cedula, fechanacimiento);
+    if (editando) {
+        personas.map((persona) => {
+            if (persona.id === personasEditar.id) {
+                persona.nombre = nombre;
+                persona.cedula = cedula;
+                persona.fechanacimiento = fechanacimiento;
+
+                return persona;
+            }
+        });
+
         calcularEdad();
         listar();
-        alert("Registrado con éxito");
+        editando=false;
+        formulario.reset();
+        formulario.querySelector('button[type="submit"]').textContent = "Guardar";
+        alert("Actualizado");
     } else {
-        alert("Persona ya existe");
+        if (!personas.some((persona) => persona.cedula === cedula)) {
+            registrar(nombre, cedula, fechanacimiento);
+            calcularEdad();
+            listar();
+            formulario.reset();
+            alert("Registrado con éxito");
+        } else {
+            alert("Persona ya existe");
+        }
     }
+
 });
 

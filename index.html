@@ -1,46 +1,49 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <title>Ejemplo</title>
-        <link rel="stylesheet" href="./estilos.css" type="text/css"/>
-    </head>
-    <body>
-        <h1>Clientes</h1>
-        <div>
-            <form id="formulario">
-                <div>
-                    <input type="text" placeholder="Ingrese su nombre" id="nombre"/>
-                </div>
-                <div>
-                    <input type="text" placeholder="Ingrese su cedula" id="cedula"/>
-                </div>
-                <div>
-                    <input type="date" id="nacimiento"/>
-                </div>
-                <button type="submit">Guardar</button>
-            </form>
-        </div>
-        <table>
-            <thead id="cabecera">
-                <tr>
-                    <th>Nombre</th>
-                    <th>Cedula</th>
-                    <th>Fecha de Nacimiento</th>
-                    <th>Edad</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody id="tabla">
 
-            </tbody>
-        </table>
-        <div>
-            <h1>Personas Eliminadas</h1>
-            <div id="carta">
-                
+<head>
+    <meta charset="UTF-8">
+    <title>Ejemplo</title>
+    <link rel="stylesheet" href="./estilos.css" type="text/css" />
+</head>
+
+<body>
+    <h1>Clientes</h1>
+    <div>
+        <form id="formulario">
+            <div>
+                <input type="text" placeholder="Ingrese su nombre" id="nombre" />
             </div>
+            <div>
+                <input type="text" placeholder="Ingrese su cedula" id="cedula" />
+            </div>
+            <div>
+                <input type="date" id="nacimiento" />
+            </div>
+            <button type="submit">Guardar</button>
+        </form>
+    </div>
+    <table>
+        <thead id="cabecera">
+            <tr>
+                <th>Nombre</th>
+                <th>Cedula</th>
+                <th>Fecha de Nacimiento</th>
+                <th>Edad</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="tabla">
+
+        </tbody>
+    </table>
+    <div>
+        <h1>Personas Eliminadas</h1>
+        <div id="carta">
+
         </div>
-        <script src="./app.js"></script>
-    </body>
+    </div>
+    <script src="./app.js"></script>
+</body>
+
 </html>
